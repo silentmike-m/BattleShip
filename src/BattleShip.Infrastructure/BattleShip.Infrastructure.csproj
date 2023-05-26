@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>10.0</LangVersion>
+        <Nullable>enable</Nullable>
+        <Company>Silent Mike</Company>
+        <Product>BattleShip</Product>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Using Include="MediatR" />
+        <Using Include="Microsoft.Extensions.Logging" />
+        <Using Include="System.Text.Json.Serialization" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="BattleShip.UnitTests" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\BattleShip.Application\BattleShip.Application.csproj" />
+    </ItemGroup>
+
+</Project>
