@@ -17,6 +17,7 @@
 
     <ItemGroup>
         <InternalsVisibleTo Include="BattleShip.UnitTests" />
+        <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
     </ItemGroup>
 
     <ItemGroup>
