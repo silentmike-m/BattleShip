@@ -1,25 +1,57 @@
+using System.Text.Json.Serialization;
+using BattleShip.Application;
+using BattleShip.Infrastructure;
+using Serilog;
+
+const int EXIT_FAILURE = 1;
+const int EXIT_SUCCESS = 0;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Configuration
+    .AddEnvironmentVariables("CONFIG_");
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Host.UseSerilog((_, loggerConfiguration) => loggerConfiguration
+    .ReadFrom.Configuration(builder.Configuration));
 
-var app = builder.Build();
+builder.Services.AddApplication();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        options.JsonSerializerOptions.WriteIndented = true;
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
+
+try
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    Log.Information("Starting host...");
+
+    var app = builder.Build();
+
+    app.UseInfrastructure();
+
+    app.UseRouting();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
+
+    await app.RunAsync();
+
+    return EXIT_SUCCESS;
 }
+catch (Exception exception)
+{
+    Log.Fatal(exception, "Host terminated unexpectedly");
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+    return EXIT_FAILURE;
+}
+finally
+{
+    Log.CloseAndFlush();
+}
