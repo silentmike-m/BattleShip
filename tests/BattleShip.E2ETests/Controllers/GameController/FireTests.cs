@@ -66,6 +66,19 @@ public sealed class FireTests
         //THEN
         response.EnsureSuccessStatusCode();
 
+        var responseToString = await response.Content.ReadAsStringAsync();
+
+        var expectedResult = new BaseResponse<string>
+        {
+            Response = CellStatus.Hit.ToString(),
+        };
+
+        var result = responseToString.To<BaseResponse<string>>();
+
+        result.Should()
+            .BeEquivalentTo(expectedResult)
+            ;
+
         var gameResult = repository.Get();
 
         gameResult.Should()
@@ -152,6 +165,19 @@ public sealed class FireTests
         //THEN
         response.EnsureSuccessStatusCode();
 
+        var responseToString = await response.Content.ReadAsStringAsync();
+
+        var expectedResult = new BaseResponse<string>
+        {
+            Response = CellStatus.Hit.ToString(),
+        };
+
+        var result = responseToString.To<BaseResponse<string>>();
+
+        result.Should()
+            .BeEquivalentTo(expectedResult)
+            ;
+
         var gameResult = repository.Get();
 
         gameResult.Should()
@@ -232,6 +258,19 @@ public sealed class FireTests
 
         //THEN
         response.EnsureSuccessStatusCode();
+
+        var responseToString = await response.Content.ReadAsStringAsync();
+
+        var expectedResult = new BaseResponse<string>
+        {
+            Response = CellStatus.Miss.ToString(),
+        };
+
+        var result = responseToString.To<BaseResponse<string>>();
+
+        result.Should()
+            .BeEquivalentTo(expectedResult)
+            ;
 
         var gameResult = repository.Get();
 

@@ -10,11 +10,22 @@ using Microsoft.AspNetCore.Mvc;
 public sealed class GameController : ApiControllerBase
 {
     [HttpPost(Name = "Fire")]
-    public async Task<IActionResult> Fire(Fire request, CancellationToken cancellationToken = default)
+    public async Task<BaseResponse<string>> Fire(Fire request, CancellationToken cancellationToken = default)
     {
         await this.Mediator.Send(request, cancellationToken);
 
-        return this.Ok();
+        var query = new GetCellStatus
+        {
+            Column = request.Column,
+            Row = request.Row,
+        };
+
+        var cellStatus = await this.Mediator.Send(query, cancellationToken);
+
+        return new BaseResponse<string>
+        {
+            Response = cellStatus,
+        };
     }
 
     [HttpGet(Name = "GetGame")]
