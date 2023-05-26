@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using BattleShip.Application;
 using BattleShip.Infrastructure;
+using BattleShip.WebApi.Filters;
 using Serilog;
 
 const int EXIT_FAILURE = 1;
@@ -18,7 +19,11 @@ builder.Services.AddApplication();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
-builder.Services.AddControllers()
+builder.Services
+    .AddControllers(options =>
+    {
+        options.Filters.Add<ApiExceptionFilterAttribute>();
+    })
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;

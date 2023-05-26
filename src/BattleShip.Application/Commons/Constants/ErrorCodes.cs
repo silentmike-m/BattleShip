@@ -7,5 +7,8 @@ public static class ErrorCodes
     public static readonly string GAME_FINISHED = "game_finished";
     public static readonly string GAME_NOT_FOUND = "game_not_found";
     public static readonly string SHIP_NOT_FOUND = "ship_not_found";
+    public static readonly string UNHANDLED_ERROR = "unhandled_error";
+    public static readonly string UNKNOWN_ERROR = "unknown_error";
+    public static readonly string UNKNOWN_ERROR_MESSAGE = "An unhandled error has occurred";
     public static readonly string VALIDATION_FAILED = "validation_failed";
 }

@@ -450,3 +450,4 @@ $RECYCLE.BIN/
 ## Sonar Qube
 ##
 **/.sonarqube/**
+/.tye/process_store
