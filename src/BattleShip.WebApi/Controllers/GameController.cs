@@ -9,6 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController, Route("[controller]/[action]")]
 public sealed class GameController : ApiControllerBase
 {
+    [HttpPost(Name = "Fire")]
+    public async Task<IActionResult> Fire(Fire request, CancellationToken cancellationToken = default)
+    {
+        await this.Mediator.Send(request, cancellationToken);
+
+        return this.Ok();
+    }
+
     [HttpGet(Name = "GetGame")]
     public async Task<BaseResponse<Game>> GetGame(CancellationToken cancellationToken = default)
     {
@@ -22,7 +30,7 @@ public sealed class GameController : ApiControllerBase
         };
     }
 
-    [HttpPost]
+    [HttpPost(Name = "StartGame")]
     public async Task<IActionResult> StartGame(CancellationToken cancellationToken = default)
     {
         var request = new StartGame();
