@@ -20,7 +20,7 @@ public sealed class CellEntityTests
             Column = 0,
             Row = 0,
             ShipId = null,
-            ShootType = ShootType.Unfired,
+            Status = CellStatus.Unfired,
         };
 
         result.Should()

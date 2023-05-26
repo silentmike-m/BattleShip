@@ -51,6 +51,8 @@ internal sealed class StartGameHandler : IRequestHandler<StartGame>
 
     private void PlaceFleet(IReadOnlyList<CellEntity> cells, Dictionary<Guid, Ship> fleet)
     {
+        //TODO: stop loop
+
         foreach (var (_, ship) in fleet)
         {
             while (true)

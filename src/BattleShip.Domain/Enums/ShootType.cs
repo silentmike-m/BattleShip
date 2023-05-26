@@ -1,6 +1,6 @@
 ﻿namespace BattleShip.Domain.Enums;
 
-public enum ShootType
+public enum CellStatus
 {
     Unfired,
     Hit,

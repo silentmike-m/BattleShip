@@ -5,6 +5,9 @@ using BattleShip.Domain.Entities;
 
 public static class CellExtensions
 {
+    public static CellEntity? Get(this IEnumerable<CellEntity> self, int column, int row)
+        => self.Where(cell => cell.Column == column).SingleOrDefault(cell => cell.Row == row);
+
     public static IEnumerable<CellEntity> GetRange(this IEnumerable<CellEntity> self, int endColumn, int endRow, int startColumn, int startRow)
     {
         var range = self

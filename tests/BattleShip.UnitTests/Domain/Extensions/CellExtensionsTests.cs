@@ -114,6 +114,20 @@ public sealed class CellExtensionsTests
     }
 
     [TestMethod]
+    public void Should_Return_Cell_On_Get()
+    {
+        //GIVEN
+
+        //WHEN
+        var result = CELLS.Get(CELL_1_1.Column, CELL_1_1.Row);
+
+        //THEN
+        result.Should()
+            .Be(CELL_1_1)
+            ;
+    }
+
+    [TestMethod]
     public void Should_Return_Cells_From_Column_On_Get_Range()
     {
         //GIVEN
@@ -160,6 +174,20 @@ public sealed class CellExtensionsTests
 
         result.Should()
             .BeEquivalentTo(expectedCells)
+            ;
+    }
+
+    [TestMethod]
+    public void Should_Return_Null_When_Missing_Cell_On_Get()
+    {
+        //GIVEN
+
+        //WHEN
+        var result = CELLS.Get(column: 4, row: 4);
+
+        //THEN
+        result.Should()
+            .BeNull()
             ;
     }
 
