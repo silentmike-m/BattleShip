@@ -43,7 +43,7 @@ public sealed class FireTests
             {
                 activeCell,
             },
-            Fleet = new Dictionary<Guid, Ship>
+            Fleet = new Dictionary<Guid, ShipEntity>
             {
                 { activeShip.Id, activeShip },
             },
@@ -129,7 +129,7 @@ public sealed class FireTests
             {
                 activeCell,
             },
-            Fleet = new Dictionary<Guid, Ship>
+            Fleet = new Dictionary<Guid, ShipEntity>
             {
                 { activeShip.Id, activeShip },
             },
@@ -210,7 +210,7 @@ public sealed class FireTests
             {
                 cell,
             },
-            Fleet = new Dictionary<Guid, Ship>
+            Fleet = new Dictionary<Guid, ShipEntity>
             {
                 { ship.Id, ship },
             },

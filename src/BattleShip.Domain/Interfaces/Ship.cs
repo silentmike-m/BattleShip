@@ -2,7 +2,7 @@
 
 using BattleShip.Domain.Enums;
 
-public abstract class Ship
+public abstract class ShipEntity
 {
     public int Hits { get; set; } = 0;
     public Guid Id { get; init; } = Guid.NewGuid();

@@ -49,7 +49,7 @@ internal sealed class StartGameHandler : IRequestHandler<StartGame>
         await Task.CompletedTask;
     }
 
-    private void PlaceFleet(IReadOnlyList<CellEntity> cells, Dictionary<Guid, Ship> fleet)
+    private void PlaceFleet(IReadOnlyList<CellEntity> cells, Dictionary<Guid, ShipEntity> fleet)
     {
         //TODO: stop loop
 
@@ -67,19 +67,19 @@ internal sealed class StartGameHandler : IRequestHandler<StartGame>
         }
     }
 
-    private bool TryToPlaceShip(IReadOnlyList<CellEntity> cells, Ship ship)
+    private bool TryToPlaceShip(IReadOnlyList<CellEntity> cells, ShipEntity shipEntity)
     {
         var isHorizontalOrientation = IsHorizontalOrientation(this.random);
         var startColumn = this.random.Next(GameSize.GAME_MIN_SIZE, GameSize.GAME_MAX_SIZE);
         var startRow = this.random.Next(GameSize.GAME_MIN_SIZE, GameSize.GAME_MAX_SIZE);
 
         var endColumn = isHorizontalOrientation
-            ? startColumn + ship.Size - 1
+            ? startColumn + shipEntity.Size - 1
             : startColumn;
 
         var endRow = isHorizontalOrientation
             ? startRow
-            : startRow + ship.Size - 1;
+            : startRow + shipEntity.Size - 1;
 
         if (endColumn > GameSize.GAME_MAX_SIZE || endRow > GameSize.GAME_MAX_SIZE)
         {
@@ -99,10 +99,10 @@ internal sealed class StartGameHandler : IRequestHandler<StartGame>
 
         foreach (var cell in range)
         {
-            cell.ShipId = ship.Id;
+            cell.ShipId = shipEntity.Id;
         }
 
-        ship.IsHorizontalOrientation = isHorizontalOrientation;
+        shipEntity.IsHorizontalOrientation = isHorizontalOrientation;
 
         return true;
     }
@@ -128,9 +128,9 @@ internal sealed class StartGameHandler : IRequestHandler<StartGame>
         return result;
     }
 
-    private static Dictionary<Guid, Ship> CreateFleet()
+    private static Dictionary<Guid, ShipEntity> CreateFleet()
     {
-        var fleet = new List<Ship>
+        var fleet = new List<ShipEntity>
         {
             new BattleshipEntity(),
             new DestroyerEntity(),

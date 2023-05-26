@@ -6,6 +6,7 @@ using BattleShip.Application.Exceptions.Games;
 using BattleShip.Application.Games.ViewModel;
 using BattleShip.Domain.Common.Constants;
 using BattleShip.Domain.Entities;
+using BattleShip.Domain.Interfaces;
 using BattleShip.Domain.Repositories;
 using BattleShip.WebApi.ViewModels;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -53,7 +54,18 @@ public sealed record GetGameTests
     public async Task Should_Return_Game_On_Get_Game()
     {
         //GIVEN
-        var game = new GameEntity();
+        var ship = new BattleshipEntity
+        {
+            Hits = 2,
+        };
+
+        var game = new GameEntity
+        {
+            Fleet = new Dictionary<Guid, ShipEntity>
+            {
+                { ship.Id, ship },
+            },
+        };
 
         var repository = this.factory.Services.CreateScope().ServiceProvider.GetRequiredService<IGameRepository>();
         repository.Save(game);
@@ -74,6 +86,16 @@ public sealed record GetGameTests
             {
                 Columns = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
                 Rows = CellRowNames.CELL_ROW_MAPPING.Keys.ToList(),
+                Ships = new List<Ship>
+                {
+                    new()
+                    {
+                        Hits = ship.Hits,
+                        Name = ship.Name,
+                        Size = ship.Size,
+                        Type = ship.Type.ToString(),
+                    },
+                },
                 Size = GameSize.GAME_MAX_SIZE,
                 Status = game.Status.ToString(),
             },

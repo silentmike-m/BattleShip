@@ -44,7 +44,7 @@ public sealed class FireHandlerTests
             {
                 cell,
             },
-            Fleet = new Dictionary<Guid, Ship>
+            Fleet = new Dictionary<Guid, ShipEntity>
             {
                 { ship.Id, ship },
             },

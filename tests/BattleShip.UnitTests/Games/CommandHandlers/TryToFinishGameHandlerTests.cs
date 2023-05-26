@@ -23,7 +23,7 @@ public sealed class TryToFinishGameHandlerTests
 
         var activeGame = new GameEntity
         {
-            Fleet = new Dictionary<Guid, Ship>
+            Fleet = new Dictionary<Guid, ShipEntity>
             {
                 { ship.Id, ship },
             },
@@ -61,7 +61,7 @@ public sealed class TryToFinishGameHandlerTests
 
         var activeGame = new GameEntity
         {
-            Fleet = new Dictionary<Guid, Ship>
+            Fleet = new Dictionary<Guid, ShipEntity>
             {
                 { ship.Id, ship },
             },

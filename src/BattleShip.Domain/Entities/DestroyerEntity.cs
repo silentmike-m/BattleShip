@@ -3,7 +3,7 @@
 using BattleShip.Domain.Enums;
 using BattleShip.Domain.Interfaces;
 
-public sealed class DestroyerEntity : Ship
+public sealed class DestroyerEntity : ShipEntity
 {
     public DestroyerEntity()
     {

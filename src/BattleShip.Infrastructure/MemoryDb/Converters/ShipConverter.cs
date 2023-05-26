@@ -5,15 +5,15 @@ using BattleShip.Domain.Entities;
 using BattleShip.Domain.Enums;
 using BattleShip.Domain.Interfaces;
 
-internal sealed class ShipConverter : JsonConverter<Ship>
+internal sealed class ShipConverter : JsonConverter<ShipEntity>
 {
-    public override Ship? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override ShipEntity? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        Ship? result;
+        ShipEntity? result;
 
         using var document = JsonDocument.ParseValue(ref reader);
 
-        var shipType = document.RootElement.GetProperty(nameof(Ship.Type)).GetString();
+        var shipType = document.RootElement.GetProperty(nameof(ShipEntity.Type)).GetString();
 
         if (shipType == ShipType.Battleship.ToString())
         {
@@ -27,12 +27,12 @@ internal sealed class ShipConverter : JsonConverter<Ship>
         return result;
     }
 
-    public override void Write(Utf8JsonWriter writer, Ship value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, ShipEntity value, JsonSerializerOptions options)
     {
         switch (value)
         {
             case null:
-                JsonSerializer.Serialize(writer, (Ship?)null, options);
+                JsonSerializer.Serialize(writer, (ShipEntity?)null, options);
 
                 break;
             default:
