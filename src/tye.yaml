@@ -1,12 +1,8 @@
-#30000 - publisher
-#30001 - client A
-#30002 - client B
-
-name: poc
+name: battleship
 network: localdev
 services:
-  - name: publisher
-    project: src/BattleShip.WebApi/BattleShip.WebApi.csproj
+  - name: game
+    project: BattleShip.WebApi/BattleShip.WebApi.csproj
     buildProperties:
       - name: Configuration
         value: Release      
